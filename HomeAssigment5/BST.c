@@ -11,7 +11,9 @@
 void recIns(TreeNode** tree, int value);
 void recPrint(TreeNode* tree);
 void destroyTree(TreeNode* tree);
-int Idx(TreeNode* tree, int N);
+int Idx(TreeNode* tree);
+int GetHeight(TreeNode* tree);
+
 void initBST(BST* bst) {
 	bst->root = NULL;
 }
@@ -73,4 +75,27 @@ int Idx(TreeNode* tree) {
 		return Idx(tree->left);
 	}
 }
+int GetHeight(TreeNode* tree) {
+	if (tree == NULL) 
+		return 0;
+	if (tree->left == NULL && tree->right == NULL) 
+		return 0;
+	int leftH = 0; 
+	int rightH = 0;
+	leftH = GetHeight(tree->left);
+	rightH = GetHeight(tree->right);
+	if (leftH > rightH) 
+		return leftH+1;
+		return rightH + 1;
 
+}
+int sameHeightRec(TreeNode* tree) {
+	if (GetHeight(tree->left) == GetHeight(tree->right))
+		return 1;
+		return 0;
+}
+int sameHeightLeaves(BST* bst) {
+	if(bst->root != NULL)
+	return sameHeightRec(bst->root);
+	return 0;
+}
